@@ -5,8 +5,10 @@ import com.vr.project.dto.TransacaoResponseDTO;
 
 public interface TransacaoService {
 	
-	public void salvarTransacao(TransacaoRequestDTO dto);
+	public TransacaoResponseDTO salvarTransacao(TransacaoRequestDTO dto);
 	
-	public TransacaoResponseDTO retornarDadosTransacao(TransacaoRequestDTO dto);
+	public TransacaoResponseDTO retornarDadosPeloCartao(String cartao);
+	
+	public TransacaoResponseDTO debitaCreditoTransacao(TransacaoRequestDTO dto);
 
 }
