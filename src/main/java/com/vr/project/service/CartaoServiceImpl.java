@@ -3,10 +3,12 @@ package com.vr.project.service;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.vr.project.dto.CartaoRequestDTO;
 import com.vr.project.dto.CartaoResponseDTO;
+import com.vr.project.exception.CartaoException;
 import com.vr.project.mapper.CartaoMapper;
 import com.vr.project.model.Cartao;
 import com.vr.project.repository.CartaoRepository;
@@ -26,7 +28,12 @@ public class CartaoServiceImpl implements CartaoService {
 	public CartaoResponseDTO salvarCartao(CartaoRequestDTO dto) {
 		var request = CartaoMapper.INTANCE.requestDTOToEntity(dto);
 		request.setValor(VALOR_DEFAULT);
-		cartaoRepository.save(request);
+		try {
+			cartaoRepository.save(request);
+		}catch(DataIntegrityViolationException e) {
+			throw new DataIntegrityViolationException("CARTAO_DUPLICADO");
+		}
+		
 		var response = CartaoMapper.INTANCE.entityToResponseDTO(request);
 		return response;
 	}
@@ -34,7 +41,7 @@ public class CartaoServiceImpl implements CartaoService {
 	@Override
 	public CartaoResponseDTO retornarDadosPeloCartao(String numeroCartao) {
 		Optional<Cartao> tr = cartaoRepository.findByNumeroCartao(numeroCartao);
-		tr.orElseThrow(() -> new RuntimeException("Numero de cartão não encontrado"));
+		tr.orElseThrow(() -> new CartaoException("CARTAO_INEXISTENTE"));
 		var response = CartaoMapper.INTANCE.entityToResponseDTO(tr.get());
 
 		return response;

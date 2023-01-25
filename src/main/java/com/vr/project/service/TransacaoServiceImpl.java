@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.vr.project.dto.TransacaoRequestDTO;
 import com.vr.project.dto.TransacaoResponseDTO;
+import com.vr.project.exception.TransacaoException;
 import com.vr.project.mapper.TransacaoMapper;
 import com.vr.project.model.Cartao;
 import com.vr.project.repository.CartaoRepository;
@@ -27,7 +28,7 @@ public class TransacaoServiceImpl implements TransacaoService {
 	public TransacaoResponseDTO salvarTransacao(TransacaoRequestDTO dto) {
 		
 		Optional<Cartao> cartao = cartaoRepository.findByNumeroCartao(dto.getNumeroCartao());
-		cartao.orElseThrow(() -> new RuntimeException("CARTAO_INEXISTENTE"));
+		cartao.orElseThrow(() -> new TransacaoException("CARTAO_INEXISTENTE"));
 		
 		validaSenha(dto.getSenha(), cartao.get().getSenha());
 		verificaLimiteValor(dto.getValor(), cartao.get().getValor());
@@ -44,11 +45,11 @@ public class TransacaoServiceImpl implements TransacaoService {
 	}
 
 	private void validaSenha(String senhaDto, String senhaCartao) {
-		if(!senhaDto.equals(senhaCartao)) throw new RuntimeException("SENHA_INVALIDA");		
+		if(!senhaDto.equals(senhaCartao)) throw new TransacaoException("SENHA_INVALIDA");		
 	}
 
-	private void verificaLimiteValor(BigDecimal dto, BigDecimal valorCartao) {
-		if(dto.compareTo(valorCartao) > 0)	throw new RuntimeException("SALDO_INSUFICIENTE");
+	private void verificaLimiteValor(BigDecimal valorDto, BigDecimal valorCartao) {
+		if(valorDto.compareTo(valorCartao) > 0) throw new TransacaoException("SALDO_INSUFICIENTE");
 	}
 
 }
