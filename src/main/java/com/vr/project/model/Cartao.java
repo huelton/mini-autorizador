@@ -2,7 +2,6 @@ package com.vr.project.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,17 +18,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="tb_transacao")
-public class Transacao implements Serializable{
+@Table(name="tb_cartao")
+public class Cartao implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(unique = true)
 	private String numeroCartao;
 	private String senha;
 	private BigDecimal valor;
-	private Instant dataTransacao;
 
 }
