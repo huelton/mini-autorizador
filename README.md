@@ -111,7 +111,9 @@ Retornando ao Endpoint do cartão pode notar a retira do saldo conforme esperado
 Deve lancar uma Exceção Codigo 422 - Unprocessable Entity informando que existe uma quebra de integridade pois o codigo do cartão já foi inserido anteriormente, outras exceções comteplam a API.
 
 ## Teste Unitários
-Os testes de unidade são obrigatórios para qualquer aplicativo de negócios, independentemente de sua complexidade e tamanho. Portanto, para demonstrar algumas das funcionalidades da combinação de **JUnit 5** + **Mockito** + **Hamcrest**, alguns [model](./src/test/java/com/vr/project/model) , [service](./src/test/java/com/vr/project/service) ae [controller](./src/test/java/com/project/controller) testes foram implementados. Você pode verificá-los acessando a pasta  [📁 test](./src/test/java/com/vr/project) Para executar os testes, na raiz do projeto, execute:
+
+Os testes unitários são obrigatórios para qualquer aplicativo de negócios, independentemente de sua complexidade e tamanho. Portanto, para demonstrar algumas das funcionalidades da combinação de **JUnit 5** + **Mockito** + **Hamcrest**, alguns [model](./src/test/java/com/vr/project/model) , [service](./src/test/java/com/vr/project/service) e [controller](./src/test/java/com/vr/project/controller) testes foram implementados. Você pode verificá-los acessando a pasta  [📁 test](./src/test/java/com/vr/project) Para executar os testes, na raiz do projeto, execute:
+
 ````bash
 $ mvn test
 ````
