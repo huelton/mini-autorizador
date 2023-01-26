@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +52,7 @@ public class ControllerAdviceHandler {
 	}
 
 	@ExceptionHandler(DataIntegrityViolationException.class)
-	public ResponseEntity<StandardError> CartaoErrorDataIntegrity(DataIntegrityViolationException e, HttpServletRequest request) {
+	public ResponseEntity<StandardError> cartaoErrorDataIntegrity(DataIntegrityViolationException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
 		StandardError err = new StandardError();
 		err.setTimeStamp(Instant.now());
