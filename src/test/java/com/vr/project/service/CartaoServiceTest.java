@@ -35,6 +35,7 @@ public class CartaoServiceTest {
 	private static final BigDecimal VALOR_DEFAULT = new BigDecimal("500.00");
 	private static final BigDecimal VALOR = new BigDecimal(500.00);
 	private static final BigDecimal SEM_SALDO = new BigDecimal(-1.00);
+	private static final Integer VERSAO = 1;
 
 	private static final String CARTAO_EXCEPTION_DUPLICADO = "CARTAO_DUPLICADO";
 	private static final String CARTAO_EXCEPTION_SALDO_INSUFICIENTE = "SALDO_INSUFICIENTE";
@@ -132,9 +133,9 @@ public class CartaoServiceTest {
 
 	private void instanciaCartao() {
 		cartaoRequestDTO = new CartaoRequestDTO(NUMERO_CARTAO, SENHA);
-		cartao = new Cartao(ID, NUMERO_CARTAO, SENHA, VALOR_DEFAULT);
+		cartao = new Cartao(ID, NUMERO_CARTAO, SENHA, VALOR_DEFAULT, VERSAO);
 		cartaoResponseDTO = new CartaoResponseDTO(ID, NUMERO_CARTAO, SENHA, VALOR);
-		cartaoInvalido = new Cartao(ID, NUMERO_CARTAO, SENHA, SEM_SALDO);
+		cartaoInvalido = new Cartao(ID, NUMERO_CARTAO, SENHA, SEM_SALDO, VERSAO);
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vr.project.dto.CartaoRequestDTO;
 import com.vr.project.dto.CartaoResponseDTO;
@@ -25,6 +26,7 @@ public class CartaoServiceImpl implements CartaoService {
 	}
 
 	@Override
+	@Transactional
 	public CartaoResponseDTO salvarCartao(CartaoRequestDTO dto) {
 		var request = CartaoMapper.INTANCE.requestDTOToEntity(dto);
 		request.setValor(VALOR_DEFAULT);
@@ -39,6 +41,7 @@ public class CartaoServiceImpl implements CartaoService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public CartaoResponseDTO retornarDadosPeloCartao(String numeroCartao) {
 		Optional<Cartao> tr = cartaoRepository.findByNumeroCartao(numeroCartao);
 		tr.orElseThrow(() -> new CartaoException("CARTAO_INEXISTENTE"));

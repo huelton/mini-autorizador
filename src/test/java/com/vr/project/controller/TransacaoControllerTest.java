@@ -66,6 +66,7 @@ public class TransacaoControllerTest {
 	private static final BigDecimal VALOR_DEBITADO = new BigDecimal("400.00");
 	private static final String LOCATION_URI = "http://localhost/transacoes/1";
 	private static final Instant DATA_TRANSACAO = Instant.now();
+	private static final Integer VERSAO = 1;
 
 	private TransacaoRequestDTO transacaoRequestDTO;
 	private TransacaoResponseDTO transacaoResponseDTO;
@@ -157,8 +158,8 @@ public class TransacaoControllerTest {
 		transacaoRequestDTO = new TransacaoRequestDTO(NUMERO_CARTAO, SENHA, VALOR_TRANSACAO, DATA_TRANSACAO);
 		transacaoResponseDTO = new TransacaoResponseDTO(ID, NUMERO_CARTAO, SENHA, VALOR_TRANSACAO);
 
-		cartao = new Cartao(ID, NUMERO_CARTAO, SENHA, VALOR_DEFAULT);
-		cartaoDebitado = new Cartao(ID, NUMERO_CARTAO, SENHA, VALOR_DEBITADO);
+		cartao = new Cartao(ID, NUMERO_CARTAO, SENHA, VALOR_DEFAULT, VERSAO);
+		cartaoDebitado = new Cartao(ID, NUMERO_CARTAO, SENHA, VALOR_DEBITADO, VERSAO);
 		cartaoResponseDebitado = new CartaoResponseDTO(ID, NUMERO_CARTAO, SENHA, VALOR_DEBITADO);
 		cartaoResponseDTO = new CartaoResponseDTO(ID, NUMERO_CARTAO, SENHA, VALOR_DEFAULT);
 	}

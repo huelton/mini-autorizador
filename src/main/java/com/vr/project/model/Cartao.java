@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,5 +31,8 @@ public class Cartao implements Serializable{
 	private String numeroCartao;
 	private String senha;
 	private BigDecimal valor;
+	
+	@Version
+	private int versao;
 
 }

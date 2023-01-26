@@ -43,7 +43,9 @@ public class TransacaoServiceTest {
 	private static final BigDecimal VALOR_DEFAULT = new BigDecimal("500.00");
 	private static final Instant DATA_TRANSACAO = Instant.now();
 	private static final BigDecimal VALOR = new BigDecimal("500.00");
+	private static final Integer VERSAO = 1;
 	private static final BigDecimal SEM_SALDO = new BigDecimal(-1.00);
+	
 
 	private static final Integer ID_INVALIDO = 9999;
 	private static final String TRANSACAO_EXCEPTION_ID_INVALIDO = "CARTAO_INEXISTENTE";
@@ -131,7 +133,7 @@ public class TransacaoServiceTest {
 		transacaoRequestDTO = new TransacaoRequestDTO(NUMERO_CARTAO, SENHA, VALOR, DATA_TRANSACAO );
 		transacaoResponseDTO = new TransacaoResponseDTO(ID, NUMERO_CARTAO, SENHA, VALOR);
 		transacaoInvalida = new Transacao(ID, NUMERO_CARTAO, SENHA, SEM_SALDO, DATA_TRANSACAO);
-		cartao = new Cartao(ID, NUMERO_CARTAO, SENHA, VALOR_DEFAULT);
+		cartao = new Cartao(ID, NUMERO_CARTAO, SENHA, VALOR_DEFAULT, VERSAO);
 
 	}
 

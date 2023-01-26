@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vr.project.dto.TransacaoRequestDTO;
 import com.vr.project.dto.TransacaoResponseDTO;
@@ -25,22 +26,25 @@ public class TransacaoServiceImpl implements TransacaoService {
 	}
 
 	@Override
+	@Transactional
 	public TransacaoResponseDTO salvarTransacao(TransacaoRequestDTO dto) {
 		
-		Optional<Cartao> cartao = cartaoRepository.findByNumeroCartao(dto.getNumeroCartao());
-		cartao.orElseThrow(() -> new TransacaoException("CARTAO_INEXISTENTE"));
+		Optional<Cartao> cartaoOptional = cartaoRepository.findByNumeroCartao(dto.getNumeroCartao());
+		cartaoOptional.orElseThrow(() -> new TransacaoException("CARTAO_INEXISTENTE"));
+		var cartao = cartaoOptional.get();
 		
-		validaSenha(dto.getSenha(), cartao.get().getSenha());
-		verificaLimiteValor(dto.getValor(), cartao.get().getValor());
 		
-		BigDecimal saldo =  cartao.get().getValor().subtract(dto.getValor());
-		cartao.get().setValor(saldo);
-		cartaoRepository.save(cartao.get());
+		validaSenha(dto.getSenha(), cartao.getSenha());
+		verificaLimiteValor(dto.getValor(), cartao.getValor());
 		
-		var entity = TransacaoMapper.INTANCE.requestDTOToEntity(dto);
+		BigDecimal saldo =  cartao.getValor().subtract(dto.getValor());
+		cartao.setValor(saldo);
+		cartaoRepository.save(cartao);
 		
-		transacaoRepository.save(entity);
-		var response = TransacaoMapper.INTANCE.entityToResponseDTO(entity);
+		var transacao = TransacaoMapper.INTANCE.requestDTOToEntity(dto);
+		
+		transacaoRepository.save(transacao);
+		var response = TransacaoMapper.INTANCE.entityToResponseDTO(transacao);
 		return response;
 	}
 

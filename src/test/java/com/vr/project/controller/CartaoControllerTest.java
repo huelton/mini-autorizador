@@ -52,6 +52,7 @@ public class CartaoControllerTest {
 	private static final String NUMERO_CARTAO = "1234";
 	private static final String SENHA = "4321";
 	private static final BigDecimal VALOR_DEFAULT = new BigDecimal("500.00");
+	private static final Integer VERSAO = 1;
 
 	private Cartao cartao;
 	private CartaoResponseDTO cartaoResponseDTO;
@@ -125,7 +126,7 @@ public class CartaoControllerTest {
 	private void instanciaCartao() {
 
 		cartaoRequestDTO = new CartaoRequestDTO(NUMERO_CARTAO, SENHA);
-		cartao = new Cartao(ID, NUMERO_CARTAO, SENHA, VALOR_DEFAULT);
+		cartao = new Cartao(ID, NUMERO_CARTAO, SENHA, VALOR_DEFAULT, VERSAO);
 		cartaoResponseDTO = new CartaoResponseDTO(ID, NUMERO_CARTAO, SENHA, VALOR_DEFAULT);
 		
 	}

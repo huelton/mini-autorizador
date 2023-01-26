@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.vr.project.model.Transacao;
 
 @Repository
-public interface TransacaoRepository extends JpaRepository<Transacao, Integer>{
+public interface TransacaoRepository extends JpaRepository<Transacao, Integer> {
+
 }

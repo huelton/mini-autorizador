@@ -14,6 +14,7 @@ public class CartaoTest {
 	private static final String NUMERO_CARTAO = "12345";
 	private static final String SENHA_CARTAO = "4321";
 	private static final BigDecimal VALOR_DEFAULT = new BigDecimal(500.00);
+	private static final Integer VERSAO = 1;
 	
 	private Cartao cartao;
 	
@@ -47,7 +48,7 @@ public class CartaoTest {
 	}
 
 	private void intanciaCartao() {
-		cartao = new Cartao(ID, NUMERO_CARTAO, SENHA_CARTAO,VALOR_DEFAULT);
+		cartao = new Cartao(ID, NUMERO_CARTAO, SENHA_CARTAO,VALOR_DEFAULT, VERSAO);
 		
 	}	
 
