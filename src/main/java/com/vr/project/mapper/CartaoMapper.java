@@ -17,10 +17,8 @@ public interface CartaoMapper {
 
 	CartaoMapper INTANCE = Mappers.getMapper(CartaoMapper.class);
 
-	// Transforma de /para: de um CartaoRequestDTO para um Cartao
 	Cartao requestDTOToEntity(CartaoRequestDTO dto);
-	
-	// Transforma de /para: de um Cartao para um CartaoResponseDTO
+
 	CartaoResponseDTO entityToResponseDTO(Cartao transacao);
 
 }

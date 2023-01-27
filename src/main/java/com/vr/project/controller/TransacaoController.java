@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.SwaggerDefinition;
 import io.swagger.annotations.Tag;
 
-@Api(value = "ransacaoController", description = "Endpoint Responsavel por criar as transações do cartão", tags = {"TransacaoController"})
+@Api(value = "TransacaoController", description = "Endpoint Responsavel por criar as transações do cartão", tags = {"TransacaoController"})
 @SwaggerDefinition(tags = {
         @Tag(name = "TransacaoController", description = "Endpoint Responsavel por criar as transações do cartão")
 })

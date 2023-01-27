@@ -17,10 +17,8 @@ public interface TransacaoMapper {
 
 	TransacaoMapper INTANCE = Mappers.getMapper(TransacaoMapper.class);
 
-	// Transforma de /para: de uma TransacaoRequestDTO para uma Transacao
 	Transacao requestDTOToEntity(TransacaoRequestDTO dto);
 	
-	// Transforma de /para: de uma  Transacao para uma TransacaoResponseDTO
 	TransacaoResponseDTO entityToResponseDTO(Transacao entity);
 	
 }

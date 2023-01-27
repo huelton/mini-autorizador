@@ -31,8 +31,7 @@ public class TransacaoServiceImpl implements TransacaoService {
 		
 		Optional<Cartao> cartaoOptional = cartaoRepository.findByNumeroCartao(dto.getNumeroCartao());
 		cartaoOptional.orElseThrow(() -> new TransacaoException("CARTAO_INEXISTENTE"));
-		var cartao = cartaoOptional.get();
-		
+		var cartao = cartaoOptional.get();		
 		
 		validaSenha(dto.getSenha(), cartao.getSenha());
 		verificaLimiteValor(dto.getValor(), cartao.getValor());
