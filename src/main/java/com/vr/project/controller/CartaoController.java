@@ -2,6 +2,8 @@ package com.vr.project.controller;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +20,8 @@ import com.vr.project.service.CartaoServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.SwaggerDefinition;
 import io.swagger.annotations.Tag;
 
@@ -45,7 +47,7 @@ public class CartaoController {
 	        @ApiResponse(code = 500, message = "Failure")
 	})
 	@PostMapping
-	public ResponseEntity<CartaoResponseDTO> salvarCartao(@RequestBody CartaoRequestDTO dto) {
+	public ResponseEntity<CartaoResponseDTO> salvarCartao(@Valid @RequestBody CartaoRequestDTO dto) {
 		CartaoResponseDTO response = cartaoService.salvarCartao(dto);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(response.getId()).toUri();

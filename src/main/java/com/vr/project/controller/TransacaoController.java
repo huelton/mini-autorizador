@@ -2,6 +2,8 @@ package com.vr.project.controller;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,7 +46,7 @@ public class TransacaoController {
 	        @ApiResponse(code = 500, message = "Failure")
 	})
 	@PostMapping
-	public ResponseEntity<TransacaoResponseDTO> salvarTransacao(@RequestBody TransacaoRequestDTO dto) {
+	public ResponseEntity<TransacaoResponseDTO> salvarTransacao(@Valid @RequestBody TransacaoRequestDTO dto) {
 		TransacaoResponseDTO response = transacaoService.salvarTransacao(dto);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(response.getId()).toUri();
