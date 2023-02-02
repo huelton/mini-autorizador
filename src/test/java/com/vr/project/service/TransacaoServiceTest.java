@@ -3,16 +3,21 @@ package com.vr.project.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Optional;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.vr.project.dto.TransacaoRequestDTO;
@@ -22,6 +27,7 @@ import com.vr.project.model.Cartao;
 import com.vr.project.model.Transacao;
 import com.vr.project.repository.CartaoRepository;
 import com.vr.project.repository.TransacaoRepository;
+import com.vr.project.service.rule.TransacaoRule;
 
 public class TransacaoServiceTest {
 
@@ -30,6 +36,9 @@ public class TransacaoServiceTest {
 	
 	@InjectMocks
 	private CartaoServiceImpl cartaoService;
+	
+	@Mock
+	private TransacaoRule rule;
 
 	@Mock
 	private TransacaoRepository transacaoRepository;
@@ -79,6 +88,8 @@ public class TransacaoServiceTest {
 	@Test 
 	public void quandoTentarSalvarTransacaoDeveLancarExececaoSeValorNegativo() {
 		when(cartaoRepository.findByNumeroCartao(transacaoRequestDTO.getNumeroCartao())).thenReturn(Optional.of(cartao));
+		transacaoRequestDTO.setValor(new BigDecimal(1000.00));
+		doNothing().when(rule).verificaLimiteValor(transacaoRequestDTO.getValor(),cartao.getValor());
 		when(transacaoService.salvarTransacao(transacaoRequestDTO)).thenThrow(new TransacaoException("SALDO_INSUFICIENTE"));
 
 		try {

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
-import com.vr.project.dto.CartaoResponseDTO;
 import com.vr.project.dto.TransacaoRequestDTO;
 import com.vr.project.dto.TransacaoResponseDTO;
 import com.vr.project.exception.StandardError;

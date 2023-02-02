@@ -13,46 +13,42 @@ import com.vr.project.mapper.TransacaoMapper;
 import com.vr.project.model.Cartao;
 import com.vr.project.repository.CartaoRepository;
 import com.vr.project.repository.TransacaoRepository;
+import com.vr.project.service.rule.TransacaoRule;
 
 @Service
 public class TransacaoServiceImpl implements TransacaoService {
 
 	private final TransacaoRepository transacaoRepository;
 	private final CartaoRepository cartaoRepository;
+	private final TransacaoRule rule;
 
-	public TransacaoServiceImpl(TransacaoRepository transacaoRepository, CartaoRepository cartaoRepository) {
+	public TransacaoServiceImpl(TransacaoRepository transacaoRepository, CartaoRepository cartaoRepository,
+			TransacaoRule rule) {
 		this.transacaoRepository = transacaoRepository;
 		this.cartaoRepository = cartaoRepository;
+		this.rule = rule;
 	}
 
 	@Override
 	@Transactional
 	public TransacaoResponseDTO salvarTransacao(TransacaoRequestDTO dto) {
-		
+
 		Optional<Cartao> cartaoOptional = cartaoRepository.findByNumeroCartao(dto.getNumeroCartao());
 		cartaoOptional.orElseThrow(() -> new TransacaoException("CARTAO_INEXISTENTE"));
-		var cartao = cartaoOptional.get();		
-		
-		validaSenha(dto.getSenha(), cartao.getSenha());
-		verificaLimiteValor(dto.getValor(), cartao.getValor());
-		
-		BigDecimal saldo =  cartao.getValor().subtract(dto.getValor());
+		var cartao = cartaoOptional.get();
+
+		rule.validaSenha(dto.getSenha(), cartao.getSenha());
+		rule.verificaLimiteValor(dto.getValor(), cartao.getValor());
+
+		BigDecimal saldo = cartao.getValor().subtract(dto.getValor());
 		cartao.setValor(saldo);
 		cartaoRepository.save(cartao);
-		
+
 		var transacao = TransacaoMapper.INTANCE.requestDTOToEntity(dto);
-		
+
 		transacaoRepository.save(transacao);
 		var response = TransacaoMapper.INTANCE.entityToResponseDTO(transacao);
 		return response;
-	}
-
-	private void validaSenha(String senhaDto, String senhaCartao) {
-		if(!senhaDto.equals(senhaCartao)) throw new TransacaoException("SENHA_INVALIDA");		
-	}
-
-	private void verificaLimiteValor(BigDecimal valorDto, BigDecimal valorCartao) {
-		if(valorDto.compareTo(valorCartao) > 0) throw new TransacaoException("SALDO_INSUFICIENTE");
 	}
 
 }
